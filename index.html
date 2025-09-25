@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WOLTRIO | Digital Innovation Studio</title>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#d4af37',
+                        dark: '#0a0a0a',
+                        darker: '#050505',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Bebas Neue', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.globe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.fog.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+    <style>
+        .smoke-effect {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.3;
+        }
+        .golden-gradient {
+            background: linear-gradient(90deg, rgba(212,175,55,0.1) 0%, rgba(212,175,55,0.3) 50%, rgba(212,175,55,0.1) 100%);
+        }
+        .golden-border {
+            border: 1px solid rgba(212,175,55,0.3);
+        }
+        .hover-glow:hover {
+            box-shadow: 0 0 15px rgba(212,175,55,0.5);
+        }
+        .text-stroke {
+            -webkit-text-stroke: 1px rgba(212,175,55,0.5);
+            color: transparent;
+        }
+        .perspective {
+            perspective: 1000px;
+        }
+        .transform-3d {
+            transform-style: preserve-3d;
+        }
+        .rotate-y-15 {
+            transform: rotateY(15deg);
+        }
+        .rotate-y--15 {
+            transform: rotateY(-15deg);
+        }
+        .transition-3d {
+            transition: transform 0.5s ease, box-shadow 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-dark text-white font-sans overflow-x-hidden">
+    <!-- Spark Cursor Canvas -->
+    <canvas id="spark-cursor" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:999;"></canvas>
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-dark/90 backdrop-blur-md border-b border-primary/10">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-display tracking-wider text-primary">Woltrio</a>
+            <div class="hidden md:flex space-x-8">
+                <a href="#services" class="hover:text-primary transition">Services</a>
+                <a href="#work" class="hover:text-primary transition">Work</a>
+                <a href="#about" class="hover:text-primary transition">About</a>
+                <a href="#contact" class="hover:text-primary transition">Contact</a>
+            </div>
+            <button class="md:hidden">
+                <i data-feather="menu"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center pt-20" id="vanta-bg">
+        <div class="container mx-auto px-6 py-20">
+            <div class="max-w-4xl mx-auto text-center" data-aos="fade-up" data-aos-duration="1000">
+                <h1 class="text-5xl md:text-7xl font-display tracking-wide mb-6">
+                    <span class="text-primary">Digital</span> Innovation <span class="text-stroke">Studio</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-300 mb-10">
+                    We craft immersive digital experiences that blend creativity with technology.
+                </p>
+                <div class="flex justify-center space-x-4">
+                    <a href="#contact" class="bg-primary text-dark px-8 py-3 rounded-md font-medium hover:bg-primary/90 transition">
+                        Start a Project
+                    </a>
+                    <a href="#work" class="border border-primary text-primary px-8 py-3 rounded-md font-medium hover:bg-primary/10 transition">
+                        Explore Work
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20 bg-darker">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-20" data-aos="fade-up">
+                <h2 class="text-4xl font-display tracking-wide mb-4">Our <span class="text-primary">Services</span></h2>
+                <p class="max-w-2xl mx-auto text-gray-400">We offer comprehensive digital solutions tailored to your business needs.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="bg-dark/50 p-8 rounded-xl golden-border hover-glow transition-3d" 
+                     data-aos="fade-up" data-aos-delay="100">
+                    <div class="text-primary mb-4">
+                        <i data-feather="code" class="w-10 h-10"></i>
+                    </div>
+                    <h3 class="text-2xl font-medium mb-3">Web Development</h3>
+                    <p class="text-gray-400">Custom, high-performance websites and web applications built with modern technologies.</p>
+                </div>
+                
+                <!-- Service 2 -->
+                <div class="bg-dark/50 p-8 rounded-xl golden-border hover-glow transition-3d" 
+                     data-aos="fade-up" data-aos-delay="200">
+                    <div class="text-primary mb-4">
+                        <i data-feather="smartphone" class="w-10 h-10"></i>
+                    </div>
+                    <h3 class="text-2xl font-medium mb-3">App Development</h3>
+                    <p class="text-gray-400">Native and cross-platform mobile applications designed for optimal user experience.</p>
+                </div>
+                
+                <!-- Service 3 -->
+                <div class="bg-dark/50 p-8 rounded-xl golden-border hover-glow transition-3d" 
+                     data-aos="fade-up" data-aos-delay="300">
+                    <div class="text-primary mb-4">
+                        <i data-feather="box" class="w-10 h-10"></i>
+                    </div>
+                    <h3 class="text-2xl font-medium mb-3">Product Design</h3>
+                    <p class="text-gray-400">End-to-end product design services from concept to final implementation.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Work Section -->
+    <section id="work" class="py-20 bg-dark">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-20" data-aos="fade-up">
+                <h2 class="text-4xl font-display tracking-wide mb-4">Our <span class="text-primary">Work</span></h2>
+                <p class="max-w-2xl mx-auto text-gray-400">Explore our portfolio of innovative digital solutions.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project Placeholder 1 -->
+                <div class="group perspective" data-aos="fade-up" data-aos-delay="100">
+                    <div class="relative overflow-hidden rounded-xl h-80 transform-3d transition-3d group-hover:rotate-y-15">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10"></div>
+                        <img src="http://static.photos/technology/640x360/1" alt="Project" class="w-full h-full object-cover">
+                        <div class="absolute bottom-0 left-0 p-6 z-20">
+                            <h3 class="text-xl font-medium mb-1">Tech Platform</h3>
+                            <p class="text-gray-300 text-sm">Web Development</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project Placeholder 2 -->
+                <div class="group perspective" data-aos="fade-up" data-aos-delay="200">
+                    <div class="relative overflow-hidden rounded-xl h-80 transform-3d transition-3d group-hover:rotate-y--15">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10"></div>
+                        <img src="http://static.photos/minimal/640x360/2" alt="Project" class="w-full h-full object-cover">
+                        <div class="absolute bottom-0 left-0 p-6 z-20">
+                            <h3 class="text-xl font-medium mb-1">Mobile App</h3>
+                            <p class="text-gray-300 text-sm">App Development</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project Placeholder 3 -->
+                <div class="group perspective" data-aos="fade-up" data-aos-delay="300">
+                    <div class="relative overflow-hidden rounded-xl h-80 transform-3d transition-3d group-hover:rotate-y-15">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10"></div>
+                        <img src="http://static.photos/abstract/640x360/3" alt="Project" class="w-full h-full object-cover">
+                        <div class="absolute bottom-0 left-0 p-6 z-20">
+                            <h3 class="text-xl font-medium mb-1">Brand Identity</h3>
+                            <p class="text-gray-300 text-sm">Design</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12" data-aos="fade-up">
+                <a href="projects.html" class="inline-flex items-center text-primary group">
+                    View All Projects
+                    <i data-feather="arrow-right" class="ml-2 w-5 h-5 group-hover:translate-x-1 transition"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-darker">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col lg:flex-row items-center">
+                <div class="lg:w-1/2 mb-12 lg:mb-0 lg:pr-12" data-aos="fade-right">
+                    <h2 class="text-4xl font-display tracking-wide mb-6">About <span class="text-primary">WOLTRIO</span></h2>
+                    <p class="text-gray-400 mb-6">
+                        Founded in 2025, Woltrio is a digital innovation studio that combines strategic thinking with cutting-edge technology to create meaningful digital experiences.
+                    </p>
+                    <p class="text-gray-400 mb-8">
+                        Our team of designers, developers, and strategists work collaboratively to deliver solutions that not only look beautiful but also drive real business results.
+                    </p>
+                    <a href="#contact" class="bg-primary text-dark px-8 py-3 rounded-md font-medium hover:bg-primary/90 transition inline-block">
+                        Get in Touch
+                    </a>
+                </div>
+                
+                <div class="lg:w-1/2" data-aos="fade-left">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-dark/50 p-6 rounded-xl golden-border hover-glow transition-3d">
+                            <div class="text-primary mb-3">
+                                <i data-feather="award" class="w-8 h-8"></i>
+                            </div>
+                            <h3 class="text-xl font-medium mb-2">0 Projects</h3>
+                            <p class="text-gray-400 text-sm">no projects for now 
+                              as its a new startup
+                              coming soon
+                            </p>
+                        </div>
+                        
+                        <div class="bg-dark/50 p-6 rounded-xl golden-border hover-glow transition-3d">
+                            <div class="text-primary mb-3">
+                                <i data-feather="users" class="w-8 h-8"></i>
+                            </div>
+                            <h3 class="text-xl font-medium mb-2">0 Clients</h3>
+                            <p class="text-gray-400 text-sm">no clients for now 
+                              as its a new startup
+                              order now
+                              and be one of the 
+                              first clients</p>
+                        </div>
+                        
+                        <div class="bg-dark/50 p-6 rounded-xl golden-border hover-glow transition-3d">
+                            <div class="text-primary mb-3">
+                                <i data-feather="clock" class="w-8 h-8"></i>
+                            </div>
+                            <h3 class="text-xl font-medium mb-2">2 Years</h3>
+                            <p class="text-gray-400 text-sm">Of experience</p>
+                        </div>
+                        
+                        <div class="bg-dark/50 p-6 rounded-xl golden-border hover-glow transition-3d">
+                            <div class="text-primary mb-3">
+                                <i data-feather="globe" class="w-8 h-8"></i>
+                            </div>
+                            <h3 class="text-xl font-medium mb-2">Globally </h3>
+                            <p class="text-gray-400 text-sm">Serving clients so 
+                              order from anywhere
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="py-20 bg-dark">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-20" data-aos="fade-up">
+                <h2 class="text-4xl font-display tracking-wide mb-4">Our <span class="text-primary">Team</span></h2>
+                <p class="max-w-2xl mx-auto text-gray-400">The creative minds behind Woltrio's success.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Team Member 1 -->
+                <div class="group" data-aos="fade-up" data-aos-delay="100">
+                    <div class="relative overflow-hidden rounded-xl mb-4 h-80">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent z-10"></div>
+                        <img src="https://i.postimg.cc/prqbHD46/yasir.jpg" alt="Team Member" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute bottom-0 left-0 p-6 z-20">
+                            <h3 class="text-xl font-medium">Yasir Khan </h3>
+                            <p class="text-primary text-sm">CEO & Founder</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Team Member 2 -->
+                <div class="group" data-aos="fade-up" data-aos-delay="200">
+                    <div class="relative overflow-hidden rounded-xl mb-4 h-80">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent z-10"></div>
+                        <img src="http://static.photos/people/640x360/2" alt="Team Member" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute bottom-0 left-0 p-6 z-20">
+                            <h3 class="text-xl font-medium">Sarah Miller</h3>
+                            <p class="text-primary text-sm">Creative Director</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Team Member 3 -->
+                <div class="group" data-aos="fade-up" data-aos-delay="300">
+                    <div class="relative overflow-hidden rounded-xl mb-4 h-80">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent z-10"></div>
+                        <img src="http://static.photos/people/640x360/3" alt="Team Member" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute bottom-0 left-0 p-6 z-20">
+                            <h3 class="text-xl font-medium">David Chen</h3>
+                            <p class="text-primary text-sm">Lead Developer</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-darker">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-20" data-aos="fade-up">
+                    <h2 class="text-4xl font-display tracking-wide mb-4">Get in <span class="text-primary">Touch</span></h2>
+                    <p class="max-w-2xl mx-auto text-gray-400">Ready to start your project? Contact us today.</p>
+                </div>
+                
+                <div class="bg-dark/50 rounded-xl p-8 md:p-12 golden-border" data-aos="fade-up">
+                    <form>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <label for="name" class="block text-gray-300 mb-2">Name</label>
+                                <input type="text" id="name" class="w-full bg-dark border border-gray-700 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-gray-300 mb-2">Email</label>
+                                <input type="email" id="email" class="w-full bg-dark border border-gray-700 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition">
+                            </div>
+                        </div>
+                        <div class="mb-6">
+                            <label for="subject" class="block text-gray-300 mb-2">Subject</label>
+                            <input type="text" id="subject" class="w-full bg-dark border border-gray-700 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition">
+                        </div>
+                        <div class="mb-8">
+                            <label for="message" class="block text-gray-300 mb-2">Message</label>
+                            <textarea id="message" rows="5" class="w-full bg-dark border border-gray-700 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition"></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-primary text-dark py-4 rounded-md font-medium hover:bg-primary/90 transition">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark py-12 border-t border-gray-800">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <a href="#" class="text-2xl font-display tracking-wider text-primary">WOLTRIO</a>
+                    <p class="text-gray-400 mt-2">Digital Innovation Studio</p>
+                </div>
+                
+                <div class="flex space-x-6 mb-6 md:mb-0">
+                    <a href="#" class="text-gray-400 hover:text-primary transition">
+                        <i data-feather="facebook"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-primary transition">
+                        <i data-feather="twitter"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-primary transition">
+                        <i data-feather="instagram"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-primary transition">
+                        <i data-feather="linkedin"></i>
+                    </a>
+                </div>
+                
+                <div class="text-gray-400 text-sm">
+                    &copy; 2025 Woltrio. All rights reserved.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize AOS animations
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true
+        });
+
+        // Initialize feather icons
+        feather.replace();
+
+        // Initialize smoke effect
+        let smokeEffect;
+        function initSmokeEffect() {
+            smokeEffect = VANTA.FOG({
+                el: "#smoke-effect",
+                mouseControls: true,
+                touchControls: true,
+                gyroControls: false,
+                minHeight: 200.00,
+                minWidth: 200.00,
+                highlightColor: 0xd4af37,
+                midtoneColor: 0x6b5b2d,
+                lowlightColor: 0x0,
+                baseColor: 0x0,
+                blurFactor: 0.5,
+                speed: 2
+            });
+        }
+
+        // Initialize background effect
+        let bgEffect;
+        function initBgEffect() {
+            bgEffect = VANTA.GLOBE({
+                el: "#vanta-bg",
+                mouseControls: true,
+                touchControls: true,
+                gyroControls: false,
+                minHeight: 200.00,
+                minWidth: 200.00,
+                scale: 1.00,
+                scaleMobile: 1.00,
+                color: 0xd4af37,
+                color2: 0x6b5b2d,
+                backgroundColor: 0x0,
+                size: 0.8
+            });
+        }
+
+        // Initialize effects when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            initSmokeEffect();
+            initBgEffect();
+        });
+
+        // Handle resize
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                if (!bgEffect) initBgEffect();
+            } else {
+                if (bgEffect) {
+                    bgEffect.destroy();
+                    bgEffect = null;
+                }
+            }
+        });
+
+        // Form submission
+        const contactForm = document.querySelector('form');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Get form data
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const subject = document.getElementById('subject').value;
+                const message = document.getElementById('message').value;
+                
+                // Create mailto link
+                const mailtoLink = `mailto:shadow5ty9@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`)}`;
+                
+                // Open email client
+                window.location.href = mailtoLink;
+            });
+        }
+
+        // Mobile menu toggle
+        const mobileMenuButton = document.querySelector('button.md\\:hidden');
+        const mobileMenu = document.querySelector('.md\\:hidden + div');
+        
+        mobileMenuButton.addEventListener('click', function() {
+            const icon = mobileMenuButton.querySelector('i');
+            if (mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.remove('hidden');
+                icon.setAttribute('data-feather', 'x');
+                feather.replace();
+            } else {
+                mobileMenu.classList.add('hidden');
+                icon.setAttribute('data-feather', 'menu');
+                feather.replace();
+            }
+        });
+
+        // 3D hover effects
+        const serviceCards = document.querySelectorAll('.transition-3d');
+        serviceCards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const angleX = (y - centerY) / 20;
+                const angleY = (centerX - x) / 20;
+                
+                card.style.transform = `perspective(1000px) rotateX(${angleX}deg) rotateY(${angleY}deg)`;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+            });
+        });
+    </script>
+<script>
+(function () {
+    const canvas = document.getElementById("spark-cursor");
+    if (!canvas) return;
+
+    // ===== Spark Trail Code (adapted from spark.txt) =====
+    // remove React hooks, using plain JS
+    // everything else from spark.txt goes here
+    // IMPORTANT: replace "const canvas = canvasRef.current;" with our "canvas"
+    // keep all event listeners (mousemove, touchstart, etc.)
+    // =====================================================
+})();
+</script>
+
+</body>
+</html>
